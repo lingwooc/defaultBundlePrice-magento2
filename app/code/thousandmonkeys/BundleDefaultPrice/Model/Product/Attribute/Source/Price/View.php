@@ -3,7 +3,7 @@
  * Copyright © 2016 Magento. All rights reserved.
  * See COPYING.txt for license details.
  */
-namespace Magento\Bundle\Model\Product\Attribute\Source\Price;
+namespace thousandmonkeys\BundleDefaultPrice\Model\Product\Attribute\Source\Price;
 
 use Magento\Eav\Model\ResourceModel\Entity\Attribute\OptionFactory;
 

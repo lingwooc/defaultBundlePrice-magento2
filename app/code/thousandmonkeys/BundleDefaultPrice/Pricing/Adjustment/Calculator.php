@@ -4,18 +4,13 @@
  * See COPYING.txt for license details.
  */
 
-namespace Magento\Bundle\Pricing\Adjustment;
+namespace thousandmonkeys\BundleDefaultPrice\Pricing\Adjustment;
 
-use Magento\Bundle\Model\Product\Price;
-use Magento\Bundle\Pricing\Price\BundleOptionPrice;
 use Magento\Bundle\Pricing\Price\BundleSelectionFactory;
 use Magento\Catalog\Model\Product;
 use Magento\Framework\Pricing\Adjustment\Calculator as CalculatorBase;
 use Magento\Framework\Pricing\Amount\AmountFactory;
-use Magento\Framework\Pricing\SaleableInterface;
 use Magento\Framework\Pricing\PriceCurrencyInterface;
-use Magento\Store\Model\Store;
-use Magento\Tax\Api\TaxCalculationInterface;
 use Magento\Tax\Helper\Data as TaxHelper;
 use Magento\Bundle\Pricing\Adjustment\Calculator
 /**
@@ -56,7 +51,7 @@ class DefaultCalculator extends Calculator
             $selections = [$option->getDefaultSelection()];
         else
             $selections = $option->getSelections();
-            
+
         if ($selections === null) {
             return $priceList;
         }

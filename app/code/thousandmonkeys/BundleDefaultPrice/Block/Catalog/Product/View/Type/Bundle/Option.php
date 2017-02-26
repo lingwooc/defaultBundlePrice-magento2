@@ -6,7 +6,7 @@
 
 // @codingStandardsIgnoreFile
 
-namespace Magento\Bundle\Block\Catalog\Product\View\Type\Bundle;
+namespace thousandmonkeys\BundleDefaultPrice\Block\Catalog\Product\View\Type\Bundle;
 
 /**
  * Bundle option renderer
@@ -62,7 +62,6 @@ class Option extends \Magento\Bundle\Block\Catalog\Product\Price
      */
     public function renderPriceString($selection, $includeContainer = true)
     {
-        
         /** @var \Magento\Bundle\Pricing\Price\BundleOptionPrice $price */
         $price = $this->getProduct()->getPriceInfo()->getPrice('bundle_option');
         $amount = $price->getOptionSelectionAmount($selection);
