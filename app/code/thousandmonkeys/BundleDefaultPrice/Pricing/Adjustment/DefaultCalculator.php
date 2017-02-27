@@ -44,10 +44,10 @@ class DefaultCalculator extends Calculator
      * @param bool $useRegularPrice
      * @return \Magento\Bundle\Pricing\Price\BundleSelectionPrice[]
      */
-    public function createSelectionPriceList($option, $bundleProduct, $useRegularPrice = false)
+    public function createSelectionPriceList($option, $bundleProduct, $useRegularPrice = false, $default = false)
     {
         $priceList = [];
-        if($bundleProduct->getPriceView()==2;)
+        if($default)
             $selections = [$option->getDefaultSelection()];
         else
             $selections = $option->getSelections();
@@ -72,4 +72,6 @@ class DefaultCalculator extends Calculator
         }
         return $priceList;
     }
+
+
 }
