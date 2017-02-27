@@ -8,11 +8,11 @@ namespace thousandmonkeys\BundleDefaultPrice\Pricing\Price;
 use Magento\Bundle\Pricing\Adjustment\BundleCalculatorInterface;
 use Magento\Catalog\Model\Product;
 use Magento\Framework\Pricing\Price\AbstractPrice;
-use Magento\Bundle\Pricing\Price\BundlePriceOption as BundleOptionPrice;
+use Magento\Bundle\Pricing\Price\BundleOptionPrice as BundleOptionPrice;
 /**
  * Bundle option price model
  */
-class DefaultBundleOptionPrice extends BundleOptionPrice implements BundleOptionPriceInterface
+class DefaultBundleOptionPrice extends BundleOptionPrice
 {
     /**
      * @param Product $saleableItem
