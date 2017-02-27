@@ -6,7 +6,7 @@
 
 namespace thousandmonkeys\BundleDefaultPrice\Pricing\Adjustment;
 
-use Magento\Bundle\Pricing\Price\BundleSelectionFactory;
+use Magento\Bundle\Pricing\Price\BundleSelectionFactory as BundleSelectionFactory;
 use Magento\Catalog\Model\Product;
 use Magento\Framework\Pricing\Adjustment\Calculator as CalculatorBase;
 use Magento\Framework\Pricing\Amount\AmountFactory;
