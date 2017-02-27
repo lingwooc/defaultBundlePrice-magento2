@@ -12,7 +12,7 @@ use Magento\Framework\Pricing\Adjustment\Calculator as CalculatorBase;
 use Magento\Framework\Pricing\Amount\AmountFactory;
 use Magento\Framework\Pricing\PriceCurrencyInterface;
 use Magento\Tax\Helper\Data as TaxHelper;
-use Magento\Bundle\Pricing\Adjustment\Calculator
+use Magento\Bundle\Pricing\Adjustment\Calculator;
 /**
  * Bundle price calculator
  * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
