@@ -9,6 +9,8 @@ use Magento\Bundle\Pricing\Adjustment\BundleCalculatorInterface;
 use Magento\Catalog\Model\Product;
 use Magento\Framework\Pricing\Price\AbstractPrice;
 use Magento\Bundle\Pricing\Price\BundleOptionPrice as BundleOptionPrice;
+use Magento\Bundle\Pricing\Price\BundleSelectionFactory as BundleSelectionFactory;
+
 /**
  * Bundle option price model
  */

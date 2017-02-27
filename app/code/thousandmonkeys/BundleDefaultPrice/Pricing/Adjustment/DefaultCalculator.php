@@ -9,10 +9,10 @@ namespace thousandmonkeys\BundleDefaultPrice\Pricing\Adjustment;
 use Magento\Bundle\Pricing\Price\BundleSelectionFactory as BundleSelectionFactory;
 use Magento\Catalog\Model\Product;
 use Magento\Framework\Pricing\Adjustment\Calculator as CalculatorBase;
-use Magento\Framework\Pricing\Amount\AmountFactory;
-use Magento\Framework\Pricing\PriceCurrencyInterface;
+use Magento\Framework\Pricing\Amount\AmountFactory as AmountFactory;
+use Magento\Framework\Pricing\PriceCurrencyInterface as PriceCurrencyInterface;
 use Magento\Tax\Helper\Data as TaxHelper;
-use Magento\Bundle\Pricing\Adjustment\Calculator;
+use Magento\Bundle\Pricing\Adjustment\Calculator as Calculator;
 /**
  * Bundle price calculator
  * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
