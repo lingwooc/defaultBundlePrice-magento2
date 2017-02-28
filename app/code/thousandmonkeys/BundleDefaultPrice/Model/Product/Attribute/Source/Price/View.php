@@ -19,7 +19,7 @@ class View extends \Magento\Bundle\Model\Product\Attribute\Source\Price\View
      */
     public function __construct(OptionFactory $optionFactory)
     {
-        View::__construct($optionFactory);
+        parent::__construct($optionFactory);
     }
 
     /**
