@@ -7,7 +7,5 @@
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../lib/internal/Magento/Framework/ObjectManager/etc/config.xsd">
     <preference for="Magento\Bundle\Pricing\Adjustment\BundleCalculatorInterface" type="thousandmonkeys\BundleDefaultPrice\Pricing\Adjustment\DefaultCalculator" />
-    <preference for="Magento\Bundle\Pricing\Price\BundlePriceOption" type="thousandmonkeys\BundleDefaultPrice\Pricing\Price\DefaultBundleOptionPrice" />
-        <preference for="Magento\Bundle\Model\Product\Attribute\Source\Price\View" type="thousandmonkeys\BundleDefaultPrice\Model\Product\Attribute\Source\Price\View" />
-
+    <preference for="Magento\Bundle\Model\Product\Attribute\Source\Price\View" type="thousandmonkeys\BundleDefaultPrice\Model\Product\Attribute\Source\Price\View" />
 </config>

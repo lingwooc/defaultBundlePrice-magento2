@@ -6,6 +6,7 @@
 
 namespace thousandmonkeys\BundleDefaultPrice\Pricing\Adjustment;
 
+use Magento\Bundle\Model\Product\Price;
 use Magento\Bundle\Pricing\Price\BundleSelectionFactory as BundleSelectionFactory;
 use Magento\Catalog\Model\Product;
 use Magento\Framework\Pricing\Adjustment\Calculator as CalculatorBase;
@@ -47,11 +48,12 @@ class DefaultCalculator extends Calculator
     public function createSelectionPriceList($option, $bundleProduct, $useRegularPrice = false, $default = false)
     {
         $priceList = [];
-        if($default)
+        if($default) {
             $selections = [$option->getDefaultSelection()];
-        else
+        }
+        else {
             $selections = $option->getSelections();
-
+        }
         if ($selections === null) {
             return $priceList;
         }
@@ -73,5 +75,50 @@ class DefaultCalculator extends Calculator
         return $priceList;
     }
 
+   /**
+     * Filter all options for bundle product
+     *
+     * @param Product $bundleProduct
+     * @param bool $searchMin
+     * @param bool $useRegularPrice
+     * @return array
+     * @SuppressWarnings(PHPMD.CyclomaticComplexity)
+     * @SuppressWarnings(PHPMD.NPathComplexity)
+     */
+    protected function getSelectionAmounts(Product $bundleProduct, $searchMin, $useRegularPrice = false)
+    {
+        $showDefaultPrice = $bundleProduct->getPriceView()==2 && $searchMin;
 
+        // Flag shows - is it necessary to find minimal option amount in case if all options are not required
+        $shouldFindMinOption = false;
+        if ($searchMin
+            && $bundleProduct->getPriceType() == Price::PRICE_TYPE_DYNAMIC
+            && !$this->hasRequiredOption($bundleProduct)
+        ) {
+            $shouldFindMinOption = true;
+        }
+        $canSkipRequiredOptions = $searchMin && !$shouldFindMinOption;
+
+        $currentPrice = false;
+        $priceList = [];
+        foreach ($this->getBundleOptions($bundleProduct) as $option) {
+            if ($this->canSkipOption($option, $canSkipRequiredOptions)) {
+                continue;
+            }
+            $selectionPriceList = $this->createSelectionPriceList($option, $bundleProduct, $useRegularPrice, $showDefaultPrice);
+            $selectionPriceList = $this->processOptions($option, $selectionPriceList, $searchMin);
+
+            $lastSelectionPrice = end($selectionPriceList);
+            $lastValue = $lastSelectionPrice->getAmount()->getValue() * $lastSelectionPrice->getQuantity();
+            if ($shouldFindMinOption
+                && (!$currentPrice ||
+                    $lastValue < ($currentPrice->getAmount()->getValue() * $currentPrice->getQuantity()))
+            ) {
+                $currentPrice = end($selectionPriceList);
+            } elseif (!$shouldFindMinOption) {
+                $priceList = array_merge($priceList, $selectionPriceList);
+            }
+        }
+        return $shouldFindMinOption ? [$currentPrice] : $priceList;
+    }
 }
