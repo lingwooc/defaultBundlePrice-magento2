@@ -11,7 +11,7 @@ namespace thousandmonkeys\BundleDefaultPrice\Block\Catalog\Product\View\Type\Bun
 /**
  * Bundle option renderer
  */
-class Option extends \Magento\Bundle\Block\Catalog\Product\Price
+class Option extends \Magento\Bundle\Block\Catalog\Product\View\Type\Bundle\Option
 {
     /**
      * @param \Magento\Framework\View\Element\Template\Context $context
@@ -36,6 +36,7 @@ class Option extends \Magento\Bundle\Block\Catalog\Product\Price
         \Magento\Framework\Math\Random $mathRandom,
         \Magento\Checkout\Helper\Cart $cartHelper,
         \Magento\Tax\Helper\Data $taxData,
+        \Magento\Framework\Pricing\Helper\Data $pricingHelper,
         array $data = []
     ) {
         parent::__construct(
