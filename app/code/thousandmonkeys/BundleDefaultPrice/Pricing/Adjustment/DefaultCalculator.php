@@ -45,10 +45,10 @@ class DefaultCalculator extends Calculator
      * @param bool $useRegularPrice
      * @return \Magento\Bundle\Pricing\Price\BundleSelectionPrice[]
      */
-    public function createSelectionPriceList($option, $bundleProduct, $useRegularPrice = false, $default = false)
+    public function createSelectionPriceList($option, $bundleProduct, $useRegularPrice = false, $searchMin = false)
     {
         $priceList = [];
-        if($default) {
+        if($bundleProduct->getPriceView()==2 && $searchMin) {
             $selections = [$option->getDefaultSelection()];
         }
         else {
@@ -87,8 +87,6 @@ class DefaultCalculator extends Calculator
      */
     protected function getSelectionAmounts(Product $bundleProduct, $searchMin, $useRegularPrice = false)
     {
-        $showDefaultPrice = $bundleProduct->getPriceView()==2 && $searchMin;
-
         // Flag shows - is it necessary to find minimal option amount in case if all options are not required
         $shouldFindMinOption = false;
         if ($searchMin
@@ -105,7 +103,7 @@ class DefaultCalculator extends Calculator
             if ($this->canSkipOption($option, $canSkipRequiredOptions)) {
                 continue;
             }
-            $selectionPriceList = $this->createSelectionPriceList($option, $bundleProduct, $useRegularPrice, $showDefaultPrice);
+            $selectionPriceList = $this->createSelectionPriceList($option, $bundleProduct, $useRegularPrice, $searchMin);
             $selectionPriceList = $this->processOptions($option, $selectionPriceList, $searchMin);
 
             $lastSelectionPrice = end($selectionPriceList);
