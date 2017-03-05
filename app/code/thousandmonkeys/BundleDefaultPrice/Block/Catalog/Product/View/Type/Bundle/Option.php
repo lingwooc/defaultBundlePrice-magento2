@@ -66,6 +66,21 @@ class Option extends \Magento\Bundle\Block\Catalog\Product\View\Type\Bundle\Opti
     }
 
     /**
+     * Get title price for selection product
+     *
+     * @param \Magento\Catalog\Model\Product $selection
+     * @param bool $includeContainer
+     * @return string
+     */
+    public function getSelectionTitlePrice($selection, $includeContainer = true)
+    {
+        $priceTitle = '<span class="product-name">' . $this->escapeHtml($selection->getName()) . '</span>';
+        $priceTitle .= ' &nbsp; ' . ($includeContainer ? '<span class="price-notice">' : '')
+            . $this->renderPriceString($selection, $includeContainer) . ($includeContainer ? '</span>' : '');
+        return $priceTitle;
+    }
+
+    /**
      * Format price string
      *
      * @param \Magento\Catalog\Model\Product $selection
@@ -77,12 +92,17 @@ class Option extends \Magento\Bundle\Block\Catalog\Product\View\Type\Bundle\Opti
         /** @var \Magento\Bundle\Pricing\Price\BundleOptionPrice $price */
         $price = $this->getProduct()->getPriceInfo()->getPrice('bundle_option');
         $amount = $price->getOptionSelectionAmount($selection);
+        $sign = '+';
 
         if($this->getProduct()->getPriceView()==2){
             $defaultSelection = $this->getOption()->getDefaultSelection();
             $defaultPrice = $price->getOptionSelectionAmount($defaultSelection)->getValue();
-            
-            $amount = $this->amountFactory->create($amount->getValue()-$defaultPrice);
+            $diff = $amount->getValue()-$defaultPrice;
+
+            $absDiff = abs($diff);
+            $sign = ($diff >= 0 ? '+' : '-');
+
+            $amount = $this->amountFactory->create($absDiff);
         }
 
         $priceHtml = $this->getLayout()->getBlock('product.price.render.default')->renderAmount(
@@ -94,6 +114,6 @@ class Option extends \Magento\Bundle\Block\Catalog\Product\View\Type\Bundle\Opti
             ]
         );
 
-        return $priceHtml;
+        return $sign . $priceHtml;
     }
 }
