@@ -8,11 +8,18 @@
 
 namespace thousandmonkeys\BundleDefaultPrice\Block\Catalog\Product\View\Type\Bundle;
 
+use Magento\Framework\Pricing\Amount\AmountFactory;
+
 /**
  * Bundle option renderer
  */
 class Option extends \Magento\Bundle\Block\Catalog\Product\View\Type\Bundle\Option
 {
+    /**
+     * @var AmountFactory
+     */
+    protected $amountFactory;
+
     /**
      * @param \Magento\Framework\View\Element\Template\Context $context
      * @param \Magento\Framework\Json\EncoderInterface $jsonEncoder
@@ -23,6 +30,7 @@ class Option extends \Magento\Bundle\Block\Catalog\Product\View\Type\Bundle\Opti
      * @param \Magento\Checkout\Helper\Cart $cartHelper
      * @param \Magento\Tax\Helper\Data $taxData
      * @param \Magento\Framework\Pricing\Helper\Data $pricingHelper
+     * @param AmountFactory $amountFactory
      * @param array $data
      *
      * @SuppressWarnings(PHPMD.ExcessiveParameterList)
@@ -37,8 +45,10 @@ class Option extends \Magento\Bundle\Block\Catalog\Product\View\Type\Bundle\Opti
         \Magento\Checkout\Helper\Cart $cartHelper,
         \Magento\Tax\Helper\Data $taxData,
         \Magento\Framework\Pricing\Helper\Data $pricingHelper,
+        AmountFactory $amountFactory,
         array $data = []
     ) {
+        echo 'injecting';
         parent::__construct(
             $context,
             $jsonEncoder,
@@ -51,6 +61,8 @@ class Option extends \Magento\Bundle\Block\Catalog\Product\View\Type\Bundle\Opti
             $pricingHelper,
             $data
         );
+
+        $this->amountFactory = $amountFactory;
     }
 
     /**
@@ -67,8 +79,10 @@ class Option extends \Magento\Bundle\Block\Catalog\Product\View\Type\Bundle\Opti
         $amount = $price->getOptionSelectionAmount($selection);
 
         if($this->getProduct()->getPriceView()==2){
-            $defaultPrice = $this->getDefaultSelection()->getAmount();
-            $amount = $amount-$defaultPrice;
+            $defaultSelection = $this->getOption()->getDefaultSelection();
+            $defaultPrice = $price->getOptionSelectionAmount($defaultSelection)->getValue();
+            
+            $amount = $this->amountFactory->create($amount->getValue()-$defaultPrice);
         }
 
         $priceHtml = $this->getLayout()->getBlock('product.price.render.default')->renderAmount(
