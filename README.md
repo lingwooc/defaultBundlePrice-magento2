@@ -1,5 +1,5 @@
 # defaultBundlePrice-magento2
-This module allows you to show the 
+This module allows you to show the default price of a bundle in the catalog and produt pages (before customisation).
 
 # Installation
 - Extract over your magento installation.
