@@ -48,7 +48,6 @@ class Option extends \Magento\Bundle\Block\Catalog\Product\View\Type\Bundle\Opti
         AmountFactory $amountFactory,
         array $data = []
     ) {
-        echo 'injecting';
         parent::__construct(
             $context,
             $jsonEncoder,
