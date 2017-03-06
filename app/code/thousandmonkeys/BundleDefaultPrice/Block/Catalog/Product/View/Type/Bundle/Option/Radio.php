@@ -15,5 +15,5 @@ class Radio extends \thousandmonkeys\BundleDefaultPrice\Block\Catalog\Product\Vi
     /**
      * @var string
      */
-    protected $_template = 'Magento_Bundle::catalog/product/view/type/bundle/option/radio.phtml';
+    protected $_template = 'catalog/product/view/type/bundle/option/radio.phtml';
 }
