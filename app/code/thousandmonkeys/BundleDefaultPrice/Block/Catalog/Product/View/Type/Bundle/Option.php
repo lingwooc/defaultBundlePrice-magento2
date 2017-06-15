@@ -73,10 +73,16 @@ class Option extends \Magento\Bundle\Block\Catalog\Product\View\Type\Bundle\Opti
      */
     public function getSelectionTitlePrice($selection, $includeContainer = true)
     {
-        $priceTitle = '<span class="product-name">' . $this->escapeHtml($selection->getName()) . '</span>';
-        $priceTitle .= ' &nbsp; ' . ($includeContainer ? '<span class="price-notice">' : '')
-            . $this->renderPriceString($selection, $includeContainer) . ($includeContainer ? '</span>' : '');
-        return $priceTitle;
+        $html = array();
+        $html[] = '<span class="product-name">';
+        $html[] = '<a href="'.$selection->getProductUrl().'" target="_blank">';
+        $html[] = $this->escapeHtml($selection->getName());
+        $html[] = '</a>';
+        $html[] = '</span>';
+        $html[] = ' &nbsp; ';
+        $html[] = ($includeContainer ? '<span class="price-notice">' : '');
+        $html[] = $this->renderPriceString($selection, $includeContainer) . ($includeContainer ? '</span>' : '');
+        return implode($html);
     }
 
     /**
