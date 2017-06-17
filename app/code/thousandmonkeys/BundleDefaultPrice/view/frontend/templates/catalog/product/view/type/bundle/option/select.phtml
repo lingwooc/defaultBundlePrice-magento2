@@ -41,7 +41,7 @@
             </select>
         <?php endif; ?>
         <div class="nested">
-            <div class="field qty qty-holder">
+            <div class="field qty qty-holder<?php if (!$_canChangeQty) echo ' qty-disabled' ?>">
                 <label class="label" for="bundle-option-<?php /* @escapeNotVerified */ echo $_option->getId() ?>-qty-input">
                     <span><?php /* @escapeNotVerified */ echo __('Quantity') ?></span>
                 </label>
