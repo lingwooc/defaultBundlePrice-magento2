@@ -57,7 +57,8 @@
                                value="<?php /* @escapeNotVerified */ echo $_selection->getSelectionId() ?>"/>
                         <label class="label"
                                for="bundle-option-<?php /* @escapeNotVerified */ echo $_option->getId() ?>-<?php /* @escapeNotVerified */ echo $_selection->getSelectionId() ?>">
-                            <span><?php /* @escapeNotVerified */ echo $block->getSelectionTitlePrice($_selection) ?></span>
+                            <span class="tip_<?php $_selection->getSelectionId()?>"><?php /* @escapeNotVerified */ echo $block->getSelectionTitlePrice($_selection) ?></span>
+                            <span class="tip_<?php $_selection->getSelectionId()?>" style="display: none;"><?php /* @escapeNotVerified */ echo $block->getTooltip($_selection) ?></span>
                         </label>
                     </div>
                 <?php endforeach; ?>

@@ -20,6 +20,7 @@ class Option extends \Magento\Bundle\Block\Catalog\Product\View\Type\Bundle\Opti
      */
     protected $amountFactory;
 
+    protected $_imageFactory;
     /**
      * @param \Magento\Framework\View\Element\Template\Context $context
      * @param \Magento\Framework\Json\EncoderInterface $jsonEncoder
@@ -45,6 +46,7 @@ class Option extends \Magento\Bundle\Block\Catalog\Product\View\Type\Bundle\Opti
         \Magento\Checkout\Helper\Cart $cartHelper,
         \Magento\Tax\Helper\Data $taxData,
         \Magento\Framework\Pricing\Helper\Data $pricingHelper,
+        \Magento\Catalog\Helper\Image $imageFactory,
         AmountFactory $amountFactory,
         array $data = []
     ) {
@@ -60,8 +62,26 @@ class Option extends \Magento\Bundle\Block\Catalog\Product\View\Type\Bundle\Opti
             $pricingHelper,
             $data
         );
-
         $this->amountFactory = $amountFactory;
+        $this->_imageFactory = $imageFactory;
+    }
+
+    /**
+     * Get title price for selection product
+     *
+     * @param \Magento\Catalog\Model\Product $selection
+     * @param bool $includeContainer
+     * @return string
+     */
+    public function getTooltip($selection)
+    {
+        $html = array();
+        $html[] = '<div class="product-tooltip">';
+        $html[] = '<img src="'.$this->_imageFactory->init($selection,'category_page_list')->constrainOnly(FALSE)->keepAspectRatio(TRUE)->keepFrame(FALSE)->resize(400)->getUrl().'" />';
+        $html[] = '<span class="name">'.$selection->getName().'</span>';
+        $html[] = '<span class="description">'.$selection->getDescription().'</span>';
+        $html[] = '</div>';
+        return implode($html);
     }
 
     /**
@@ -74,8 +94,10 @@ class Option extends \Magento\Bundle\Block\Catalog\Product\View\Type\Bundle\Opti
     public function getSelectionTitlePrice($selection, $includeContainer = true)
     {
         $html = array();
+
+
         $html[] = '<span class="product-name">';
-        $html[] = '<a href="'.$selection->getProductUrl().'" target="_blank">';
+        // $html[] = '<a href="'.$selection->getProductUrl().'" target="_blank">';
         $html[] = $this->escapeHtml($selection->getName());
         $html[] = '</a>';
         $html[] = '</span>';
