@@ -116,6 +116,21 @@ define([
             }
             this._applyOptionNodeFix(options);
             this.updateProductSummary();
+            this._updateGallery(event);
+        },
+
+        /**
+         * Update the gallery
+         * @param {jQuery.Event} event
+         * @private
+         */
+        _updateGallery: function updateGallery(event) {
+             var gallery = $("#choice-gallery"),
+                bundleOption = $(event.target);
+            var option = bundleOption.val();
+            var optionId = utils.findOptionId(bundleOption[0]);
+            var optionConfig = this.options.optionConfig.options[optionId].selections[option];
+            gallery.updateData(optionConfig.images);
         },
 
         /**

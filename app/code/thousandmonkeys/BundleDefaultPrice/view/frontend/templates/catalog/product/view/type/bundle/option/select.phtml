@@ -13,6 +13,38 @@
 <?php $_selections  = $_option->getSelections(); ?>
 <?php $_default     = $_option->getDefaultSelection(); ?>
 <?php list($_defaultQty, $_canChangeQty) = $block->getDefaultValues(); ?>
+<?php foreach ($_selections as $_selection):
+    if ($block->isSelected($_selection)):
+        ?>
+        <script type="text/x-magento-init">
+            {
+                "[data-gallery-role=choice-gallery-placeholder]": {
+                    "mage/gallery/gallery": {
+                        "data": <?php /* @escapeNotVerified */ echo $block->getGalleryImagesJson($_selection); ?>,
+                        "options": {
+                            "nav": "dots",
+                            "loop": true,
+                            "keyboard": true,
+                            "arrows": true,
+                            "allowfullscreen": false,
+                            "showCaption": false,
+                            "width": 200,
+                            "thumbwidth": 10,
+                            "thumbheight": 10,
+                            "height": 300,
+                            "transitionduration": 300,
+                            "transition": "slide",
+                            "navarrows": true,
+                            "navtype": "thumbs",
+                            "navdir": "horizontal"
+                        }
+                    }
+                }
+            }
+        </script>
+    <?php break; endif;?>
+<?php endforeach;?>
+
 <div class="field option <?php echo ($_option->getRequired()) ? ' required': ''; ?>">
     <label class="label" for="bundle-option-<?php /* @escapeNotVerified */ echo $_option->getId() ?>">
         <span><?php echo $block->escapeHtml($_option->getTitle()) ?></span>
@@ -36,10 +68,12 @@
                         <?php if ($block->isSelected($_selection)) echo ' selected="selected"' ?>
                         <?php if (!$_selection->isSaleable()) echo ' disabled="disabled"' ?>>
                         <?php /* @escapeNotVerified */ echo $_selection->getName() ?>
+                        
                     </option>
                 <?php endforeach; ?>
             </select>
         <?php endif; ?>
+        <div id="choice-gallery" data-gallery-role="choice-gallery-placeholder"></div>
         <div class="nested">
             <div class="field qty qty-holder<?php if (!$_canChangeQty) echo ' qty-disabled' ?>">
                 <label class="label" for="bundle-option-<?php /* @escapeNotVerified */ echo $_option->getId() ?>-qty-input">

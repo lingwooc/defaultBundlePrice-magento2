@@ -16,11 +16,17 @@ use Magento\Framework\Pricing\Amount\AmountFactory;
 class Option extends \Magento\Bundle\Block\Catalog\Product\View\Type\Bundle\Option
 {
     /**
+     * @var \Magento\Catalog\Helper\Image
+     */
+    protected $_imageHelper;
+
+    protected $_productRepository;
+
+    /**
      * @var AmountFactory
      */
     protected $amountFactory;
 
-    protected $_imageFactory;
     /**
      * @param \Magento\Framework\View\Element\Template\Context $context
      * @param \Magento\Framework\Json\EncoderInterface $jsonEncoder
@@ -46,7 +52,8 @@ class Option extends \Magento\Bundle\Block\Catalog\Product\View\Type\Bundle\Opti
         \Magento\Checkout\Helper\Cart $cartHelper,
         \Magento\Tax\Helper\Data $taxData,
         \Magento\Framework\Pricing\Helper\Data $pricingHelper,
-        \Magento\Catalog\Helper\Image $imageFactory,
+        \Magento\Catalog\Helper\Image $imageHelper,
+        \Magento\Catalog\Model\ProductRepository $productRepository,
         AmountFactory $amountFactory,
         array $data = []
     ) {
@@ -63,25 +70,8 @@ class Option extends \Magento\Bundle\Block\Catalog\Product\View\Type\Bundle\Opti
             $data
         );
         $this->amountFactory = $amountFactory;
-        $this->_imageFactory = $imageFactory;
-    }
-
-    /**
-     * Get title price for selection product
-     *
-     * @param \Magento\Catalog\Model\Product $selection
-     * @param bool $includeContainer
-     * @return string
-     */
-    public function getTooltip($selection)
-    {
-        $html = array();
-        $html[] = '<div class="product-tooltip">';
-        $html[] = '<img src="'.$this->_imageFactory->init($selection,'category_page_list')->constrainOnly(FALSE)->keepAspectRatio(TRUE)->keepFrame(FALSE)->resize(400)->getUrl().'" />';
-        $html[] = '<span class="name">'.$selection->getName().'</span>';
-        $html[] = '<span class="description">'.$selection->getDescription().'</span>';
-        $html[] = '</div>';
-        return implode($html);
+        $this->_imageHelper = $imageHelper;
+        $this->_productRepository = $productRepository;
     }
 
     /**
@@ -142,5 +132,24 @@ class Option extends \Magento\Bundle\Block\Catalog\Product\View\Type\Bundle\Opti
         );
 
         return $sign . $priceHtml;
+    }
+
+        /**
+     * Retrieve product images in JSON format
+     *
+     * @return string
+     */
+    public function getGalleryImagesJson($selection)
+    {
+        $imagesItems = [];
+        $imagesItems[] = [
+            'thumb' => $this->_imageHelper->getDefaultPlaceholderUrl('thumbnail'),
+            'img' => $this->_imageHelper->getDefaultPlaceholderUrl('image'),
+            'full' => $this->_imageHelper->getDefaultPlaceholderUrl('image'),
+            'caption' => '',
+            'position' => '0',
+            'isMain' => true,
+        ];
+        return json_encode($imagesItems);
     }
 }
