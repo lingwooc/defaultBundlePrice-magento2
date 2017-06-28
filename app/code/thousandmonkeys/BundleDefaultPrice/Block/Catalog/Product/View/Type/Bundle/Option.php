@@ -141,15 +141,7 @@ class Option extends \Magento\Bundle\Block\Catalog\Product\View\Type\Bundle\Opti
      */
     public function getGalleryImagesJson($selection)
     {
-        $imagesItems = [];
-        $imagesItems[] = [
-            'thumb' => $this->_imageHelper->getDefaultPlaceholderUrl('thumbnail'),
-            'img' => $this->_imageHelper->getDefaultPlaceholderUrl('image'),
-            'full' => $this->_imageHelper->getDefaultPlaceholderUrl('image'),
-            'caption' => '',
-            'position' => '0',
-            'isMain' => true,
-        ];
-        return json_encode($imagesItems);
+        $bundleBlock =  $this->getLayout()->createBlock('thousandmonkeys\BundleDefaultPrice\Block\Catalog\Product\View\Type\Bundle');
+        return json_encode($bundleBlock->getGalleryImagesJson($selection));
     }
 }

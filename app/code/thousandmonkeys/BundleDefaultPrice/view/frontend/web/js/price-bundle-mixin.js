@@ -84,6 +84,7 @@ define([
             }
             this._applyQtyFix();
             this._applyOptionNodeFix(options);
+            //this._updateGallery(options);
 
             options.on('change', this._onBundleOptionChanged.bind(this));
             qty.on('change', this._onQtyFieldChanged.bind(this));
@@ -130,8 +131,22 @@ define([
             var option = bundleOption.val();
             var optionId = utils.findOptionId(bundleOption[0]);
             var optionConfig = this.options.optionConfig.options[optionId].selections[option];
-            gallery.updateData(optionConfig.images);
+            var api = $('[data-gallery-role=choice-gallery-placeholder]').data('gallery');
+            api.updateData(optionConfig.images);
         },
+        // _updateGallery: function updateGallery(options) {
+        //     var config = this.options;
+
+        //     options.filter('select').each(function (index, element) {
+        //         var bundleOption = $(element);
+        //         var option = bundleOption.val();
+        //         var optionId = utils.findOptionId(bundleOption[0]);
+        //         var optionConfig = config.optionConfig.options[optionId].selections[option];
+
+        //         var api = $('[data-gallery-role=choice-gallery-placeholder]').data('gallery');
+        //         api.updateData(optionConfig.images);
+        //     })
+        // },
 
         /**
          * Handle change on qty inputs near bundle option
