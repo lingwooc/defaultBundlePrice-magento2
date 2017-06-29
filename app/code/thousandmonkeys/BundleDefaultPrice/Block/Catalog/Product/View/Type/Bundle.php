@@ -159,6 +159,8 @@ class Bundle extends \Magento\Bundle\Block\Catalog\Product\View\Type\Bundle
             'name' => $selection->getName(),
             'canApplyMsrp' => false,
             'images' => $this->getGalleryImagesJson($selection),
+            'description' => $this->getDescription($selection),
+            'url' => $selection->getProductUrl(),   
         ];
         return $selection;
     }
@@ -328,5 +330,11 @@ class Bundle extends \Magento\Bundle\Block\Catalog\Product\View\Type\Bundle
         }
 
         return $images;
+    }
+
+    public function getDescription($partialProduct){
+        $product = $this->_productRepository->get($partialProduct->getSku());
+        $description = $product->getData('short_description');
+        return $description;
     }
 }

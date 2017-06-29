@@ -15,10 +15,12 @@
 <?php list($_defaultQty, $_canChangeQty) = $block->getDefaultValues(); ?>
 <?php foreach ($_selections as $_selection):
     if ($block->isSelected($_selection)):
+        $description = $block->getDescription($_selection);
+        $url = $_selection->getProductUrl();
         ?>
         <script type="text/x-magento-init">
             {
-                "[data-gallery-role=choice-gallery-placeholder]": {
+                "[data-gallery-role=choice-gallery-placeholder-<?php /* @escapeNotVerified */ echo $_option->getId() ?>]": {
                     "mage/gallery/gallery": {
                         "data": <?php /* @escapeNotVerified */ echo $block->getGalleryImagesJson($_selection); ?>,
                         "options": {
@@ -31,7 +33,7 @@
                             "width": 200,
                             "thumbwidth": 10,
                             "thumbheight": 10,
-                            "height": 300,
+                            "height": 200,
                             "transitionduration": 300,
                             "transition": "slide",
                             "navarrows": true,
@@ -69,12 +71,17 @@
                         <?php if ($block->isSelected($_selection)) echo ' selected="selected"' ?>
                         <?php if (!$_selection->isSaleable()) echo ' disabled="disabled"' ?>>
                         <?php /* @escapeNotVerified */ echo $_selection->getName() ?>
-                        
                     </option>
                 <?php endforeach; ?>
             </select>
         <?php endif; ?>
-        <div id="choice-gallery" data-gallery-role="choice-gallery-placeholder"></div>
+        <div class="row">
+            <div data-gallery-role="choice-gallery-placeholder-<?php /* @escapeNotVerified */ echo $_option->getId() ?>" class="col-xs-6"></div>
+            <div class="col-xs-6">
+                <div id="choice-description-<?php /* @escapeNotVerified */ echo $_option->getId() ?>"><?php echo $description ?></div>
+                <div><a id="choice-info-link-<?php /* @escapeNotVerified */ echo $_option->getId() ?>" target="_blank" href="<?php echo $url ?>"><?php echo _('more information') ?></a></div>
+            </div>
+        </div>
         <div class="nested">
             <div class="field qty qty-holder<?php if (!$_canChangeQty) echo ' qty-disabled' ?>">
                 <label class="label" for="bundle-option-<?php /* @escapeNotVerified */ echo $_option->getId() ?>-qty-input">

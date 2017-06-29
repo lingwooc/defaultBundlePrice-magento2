@@ -144,4 +144,9 @@ class Option extends \Magento\Bundle\Block\Catalog\Product\View\Type\Bundle\Opti
         $bundleBlock =  $this->getLayout()->createBlock('thousandmonkeys\BundleDefaultPrice\Block\Catalog\Product\View\Type\Bundle');
         return json_encode($bundleBlock->getGalleryImagesJson($selection));
     }
+
+    public function getDescription($partialProduct){
+        $bundleBlock =  $this->getLayout()->createBlock('thousandmonkeys\BundleDefaultPrice\Block\Catalog\Product\View\Type\Bundle');
+        return $bundleBlock->getDescription($partialProduct);
+    }
 }

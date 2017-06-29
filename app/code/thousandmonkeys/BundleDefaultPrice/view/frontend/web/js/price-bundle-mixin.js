@@ -126,13 +126,15 @@ define([
          * @private
          */
         _updateGallery: function updateGallery(event) {
-             var gallery = $("#choice-gallery"),
-                bundleOption = $(event.target);
+            var bundleOption = $(event.target);
             var option = bundleOption.val();
             var optionId = utils.findOptionId(bundleOption[0]);
             var optionConfig = this.options.optionConfig.options[optionId].selections[option];
-            var api = $('[data-gallery-role=choice-gallery-placeholder]').data('gallery');
+            var api = $('[data-gallery-role=choice-gallery-placeholder-'+optionId+']').data('gallery');
             api.updateData(optionConfig.images);
+
+            $('#choice-description-'+optionId).html(optionConfig.description);
+            $('#choice-info-link-'+optionId).attr("href", optionConfig.url);
         },
         // _updateGallery: function updateGallery(options) {
         //     var config = this.options;
