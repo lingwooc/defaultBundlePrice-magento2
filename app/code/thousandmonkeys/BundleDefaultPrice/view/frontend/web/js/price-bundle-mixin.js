@@ -131,7 +131,8 @@ define([
             var optionId = utils.findOptionId(bundleOption[0]);
             var optionConfig = this.options.optionConfig.options[optionId].selections[option];
             var api = $('[data-gallery-role=choice-gallery-placeholder-'+optionId+']').data('gallery');
-            api.updateData(optionConfig.images);
+            if(api)
+                api.updateData(optionConfig.images);
 
             $('#choice-description-'+optionId).html(optionConfig.description);
             $('#choice-info-link-'+optionId).attr("href", optionConfig.url);
