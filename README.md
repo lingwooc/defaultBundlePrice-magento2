@@ -2,7 +2,7 @@
 This module allows you to show the default price of a bundle in the catalog and product pages (before customisation). It also shows the price difference on the option selectors and a thumbnail.
 
 # Installation
-- composer require ThousandMonkeys/m2-bundledefaultprice-modul
+- composer require thousandmonkeys/m2-bundledefaultprice-module
 - php bin/magento setup:upgrade
 - php bin/magento setup:di:compile
 - php bin/magento setup:static-content:deploy
