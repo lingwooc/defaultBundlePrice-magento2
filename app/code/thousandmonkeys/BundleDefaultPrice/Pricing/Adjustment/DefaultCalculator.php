@@ -49,7 +49,10 @@ class DefaultCalculator extends Calculator
     {
         $priceList = [];
         if($bundleProduct->getPriceView()==2 && $searchMin) {
-            $selections = [$option->getDefaultSelection()];
+            if(!is_null($option->getDefaultSelection()))
+                $selections = [$option->getDefaultSelection()];
+            else
+                $selections = [];
         }
         else {
             $selections = $option->getSelections();
@@ -106,11 +109,11 @@ class DefaultCalculator extends Calculator
             $selectionPriceList = $this->createSelectionPriceList($option, $bundleProduct, $useRegularPrice, $searchMin);
             $selectionPriceList = $this->processOptions($option, $selectionPriceList, $searchMin);
 
-            $lastSelectionPrice = end($selectionPriceList);
-            $lastValue = $lastSelectionPrice->getAmount()->getValue() * $lastSelectionPrice->getQuantity();
-            if ($shouldFindMinOption
-                && (!$currentPrice ||
-                    $lastValue < ($currentPrice->getAmount()->getValue() * $currentPrice->getQuantity()))
+            if(count($selectionPriceList) != 0) {
+                $lastSelectionPrice = end($selectionPriceList);
+                $lastValue = $lastSelectionPrice->getAmount()->getValue() * $lastSelectionPrice->getQuantity();
+            }
+            if ($shouldFindMinOption && (!$currentPrice || $lastValue < ($currentPrice->getAmount()->getValue() * $currentPrice->getQuantity()))
             ) {
                 $currentPrice = end($selectionPriceList);
             } elseif (!$shouldFindMinOption) {
