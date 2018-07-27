@@ -1,6 +1,9 @@
 <?php
 
 namespace ThousandMonkeys\BundleDefaultPrice\Model\ResourceModel\Indexer;
+
+use Magento\Catalog\Api\Data\ProductInterface;
+
 /**
  * Price data parser used for grouped and bundled products.
  *
@@ -96,7 +99,7 @@ class Price extends \Magento\Bundle\Model\ResourceModel\Indexer\Price
         )->join(
             ['bs' => $this->getTable('catalog_product_bundle_selection')],
             'bs.option_id = bo.option_id',
-            ['selection_id','is_default']
+            ['selection_id']
         )->joinLeft(
             ['bsp' => $this->getTable('catalog_product_bundle_selection_price')],
             'bs.selection_id = bsp.selection_id AND bsp.website_id = i.website_id',

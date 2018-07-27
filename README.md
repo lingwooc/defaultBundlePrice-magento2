@@ -1,5 +1,5 @@
 # defaultBundlePrice-magento2
-This module allows you to show the default price of a bundle in the catalog and product pages (before customisation). It also shows the price difference on the option selectors and a thumbnail.
+This module allows you to show the default price of a bundle in the catalog and product pages (before customisation). It also shows the price difference on the option selectors and a thumbnail. Also fixes the indexer to have the minimum price as the default price. If you don't require this delete Model/ResourceMode/Indexer/Price.php and remove the last line from di.xml
 
 # Installation
 - composer require thousandmonkeys/m2-bundledefaultprice-module
