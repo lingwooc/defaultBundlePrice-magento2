@@ -11,4 +11,5 @@
     <preference for="Magento\Bundle\Block\Catalog\Product\View\Type\Bundle\Option\Radio" type="ThousandMonkeys\BundleDefaultPrice\Block\Catalog\Product\View\Type\Bundle\Option\Radio" />
     <preference for="Magento\Bundle\Block\Catalog\Product\View\Type\Bundle\Option\Select" type="ThousandMonkeys\BundleDefaultPrice\Block\Catalog\Product\View\Type\Bundle\Option\Select" />
     <preference for="Magento\Bundle\Block\Catalog\Product\View\Type\Bundle" type="ThousandMonkeys\BundleDefaultPrice\Block\Catalog\Product\View\Type\Bundle" />
+    <preference for="Magento\Bundle\Model\ResourceModel\Indexer\Price" type="ThousandMonkeys\BundleDefaultPrice\Model\ResourceModel\Indexer\Price" />
 </config>
