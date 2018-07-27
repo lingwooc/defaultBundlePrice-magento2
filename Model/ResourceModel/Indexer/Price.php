@@ -8,7 +8,7 @@ namespace ThousandMonkeys\BundleDefaultPrice\Model\ResourceModel\Indexer;
  * @package  Smile\ElasticsuiteCatalog
  * @author   Aurelien FOUCRET <aurelien.foucret@smile.fr>
  */
-class Price implements Magento\Bundle\Model\ResourceModel\Indexer\Price
+class Price extends \Magento\Bundle\Model\ResourceModel\Indexer\Price
 {
    /**
      * Calculate bundle product selections price by product type
