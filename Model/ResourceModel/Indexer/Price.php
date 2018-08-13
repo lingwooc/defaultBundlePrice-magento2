@@ -22,7 +22,6 @@ class Price extends \Magento\Bundle\Model\ResourceModel\Indexer\Price
      */
     protected function _calculateBundleSelectionPrice($priceType)
     {
-        echo 'hi guys!';
         $connection = $this->getConnection();
 
         if ($priceType == \Magento\Bundle\Model\Product\Price::PRICE_TYPE_FIXED) {
