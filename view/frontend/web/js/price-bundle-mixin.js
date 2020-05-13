@@ -72,7 +72,7 @@ define([
         _create: function createPriceBundle() {
             var form = this.element,
                 options = $(this.options.productBundleSelector, form),
-                priceBox = $(this.options.priceBoxSelector, form),
+                priceBox = $(this.options.priceBoxSelector),
                 qty = $(this.options.qtyFieldSelector, form);
 
             if (priceBox.data('magePriceBox') && priceBox.priceBox('option') && priceBox.priceBox('option').priceConfig) {
@@ -99,7 +99,7 @@ define([
             var form = this.element,
                 changes,
                 bundleOption = $(event.target),
-                priceBox = $(this.options.priceBoxSelector, this.element),
+                priceBox = $(this.options.priceBoxSelector),
                 handler = this.options.optionHandlers[bundleOption.data('role')],
                 options = $(this.options.productBundleSelector, form);
 
