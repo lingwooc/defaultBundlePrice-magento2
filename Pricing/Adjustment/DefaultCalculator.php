@@ -7,6 +7,7 @@
 namespace ThousandMonkeys\BundleDefaultPrice\Pricing\Adjustment;
 
 use Magento\Bundle\Model\Product\Price;
+use Magento\Bundle\Pricing\Adjustment\SelectionPriceListProviderInterface;
 use Magento\Bundle\Pricing\Price\BundleSelectionFactory as BundleSelectionFactory;
 use Magento\Catalog\Model\Product;
 use Magento\Framework\Pricing\Adjustment\Calculator as CalculatorBase;
@@ -32,9 +33,10 @@ class DefaultCalculator extends Calculator
         AmountFactory $amountFactory,
         BundleSelectionFactory $bundleSelectionFactory,
         TaxHelper $taxHelper,
-        PriceCurrencyInterface $priceCurrency
+        PriceCurrencyInterface $priceCurrency,
+        SelectionPriceListProviderInterface $selectionPriceListProvider
     ) {
-        parent::__construct($calculator, $amountFactory, $bundleSelectionFactory, $taxHelper, $priceCurrency);
+        parent::__construct($calculator, $amountFactory, $bundleSelectionFactory, $taxHelper, $priceCurrency, selectionPriceListProvider);
     }
 
     /**
