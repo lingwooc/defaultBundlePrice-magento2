@@ -36,7 +36,7 @@ class DefaultCalculator extends Calculator
         PriceCurrencyInterface $priceCurrency,
         SelectionPriceListProviderInterface $selectionPriceListProvider
     ) {
-        parent::__construct($calculator, $amountFactory, $bundleSelectionFactory, $taxHelper, $priceCurrency, selectionPriceListProvider);
+        parent::__construct($calculator, $amountFactory, $bundleSelectionFactory, $taxHelper, $priceCurrency, $selectionPriceListProvider);
     }
 
     /**
